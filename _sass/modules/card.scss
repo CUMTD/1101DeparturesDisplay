@@ -4,6 +4,6 @@
 	padding: $card-padding-top $card-padding-side;
 	margin: $top-margins 0 0 $gutter-size;
 	color: $font-color;
-	background: $card-color;
+	background: rgba($card-color,0.7);
 	box-shadow: 0 0 2.2rem -0.3rem $background-color;
 }
