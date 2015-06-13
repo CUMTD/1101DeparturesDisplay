@@ -1,0 +1,14 @@
+$top-margins: 2rem;
+$gutter-size: $top-margins;
+$document-width: 128rem;
+$document-height: 102.4rem;
+
+$card-padding-side: 2rem;
+$card-padding-top: 1rem;
+
+$departure-width: ($document-width - ($gutter-size * 3)) / 2;
+$departure-height: ($document-height - ($top-margins * 4)) / 3;
+$departure-bubble-size: $gutter-size * 2;
+
+$clock-width: $document-width - ($gutter-size * 2);
+$clock-height: $departure-height;

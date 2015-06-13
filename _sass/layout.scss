@@ -1,0 +1,25 @@
+@import "_import.scss";
+
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+
+html, body, main, article, section {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 10px;
+}
+
+body {
+	font-size: 160%;
+	width: $document-width;
+	height:$document-height;
+	position: relative;
+}
+
+main {
+	overflow: hidden;
+}

@@ -1,0 +1,69 @@
+@import "../_import.scss";
+
+.departure {
+	padding-left: ($card-padding-side + $departure-bubble-size);
+	float:left;
+	position: relative;
+	width: $departure-width;
+	height: $departure-height;
+	
+	
+	.bubble {
+		position: absolute;
+		top:0;
+		bottom: 0;
+		left: 0;
+		width: $departure-bubble-size;
+		border-left: 0.2rem solid currentColor;
+		border-right: 0.2rem solid currentColor;
+	}
+	
+	.hopper::after {
+		content: ' ';
+		background-image: url('/image/stripe.svg');
+		background-repeat: repeat-y;
+		background-size: 100%;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 10000;
+	}
+	
+	.headsign {
+		margin: 0;
+		@include header-font();
+		font-size: 5.2rem;
+	}
+	
+	.boarding-point {
+		margin: 0 0 0 2rem;
+		@include accent-font();
+		font-size: 3.3rem;
+	}
+		
+	.time {	
+		margin: 0;
+		position: absolute;
+		bottom:1rem;
+		right:2rem;
+		
+		> .mins {
+			font-size: 14rem;
+			@include header-font();	
+		}
+		
+		> .label {
+			@include accent-font();
+			font-size: 6rem;
+		}
+		
+		> .mins, > .label {
+			vertical-align: bottom;
+			line-height: 1;
+		}
+		
+	}	
+	
+}

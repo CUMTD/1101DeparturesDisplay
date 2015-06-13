@@ -1,0 +1,61 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>1101 E. University: Departures</title>
+        <meta name="description" content="Departures for MTD office building">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link href="/css/site.css" rel="stylesheet">
+        
+        <link href="favicon.ico" rel="icon" type="image/x-icon" />        
+    </head>
+    <body>
+        <main>
+            <article id="departures" data-bind="foreach: departures">
+                <section class="card departure">
+                    <span class="bubble"  data-bind="attr: { style: 'background-color: ' + routeColor + ';color: ' + routeColor  }, css: { hopper: isHopper }"></span>
+                    <div class="content">
+                        <h1 class="headsign" data-bind="text: headsign"></h1>
+                        <h2 class="boarding-point" data-bind="text: stopLocation"></h2>
+                        <p class="time">
+                            <span class="mins" data-bind="text: expectedText"></span>
+                            <span class="label" data-bind="visible: isMonitored">mins</span>
+                        </p>
+                    </div>
+                </section>
+            </article>
+            <aside id="clock" class="card clock">
+                <p class="time" data-bind="text: formattedTime"></p>
+            </aside>
+        </main>
+        <script src="/js/lib/knockout-3.3.0.js"></script>
+        <script src="/js/lib/moment-2.10.3.js"></script>
+        <script src="/js/ajax.js"></script>
+        <script src="/js/departures-view-model.js"></script>
+        <script src="/js/time-view-model.js"></script>
+        <script src="/js/departure.js"></script>
+        <script src="/js/departure-update-service.js"></script>
+        <script>
+            (function() {
+                
+                // setup departures
+                var viewModel = new DeparturesViewModel(new DepartureUpdateService());
+                ko.applyBindings(viewModel, document.getElementById('departures'));
+                viewModel.startUpdates();
+                
+                // setup clock
+                ko.applyBindings(new TimeViewModel(), document.getElementById('clock'));
+                
+                // reload the page once a day
+                window.setTimeout(function() {
+                    window.location.reload(true);
+                }, 1440000); // 24 hours
+                
+            })();
+        </script>
+    </body>
+</html>

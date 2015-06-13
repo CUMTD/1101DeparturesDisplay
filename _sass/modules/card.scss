@@ -1,0 +1,9 @@
+@import "../_import.scss";
+
+.card {
+	padding: $card-padding-top $card-padding-side;
+	margin: $top-margins 0 0 $gutter-size;
+	color: $font-color;
+	background: $card-color;
+	box-shadow: 0 0 2.2rem -0.3rem $background-color;
+}

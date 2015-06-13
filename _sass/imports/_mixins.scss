@@ -1,0 +1,10 @@
+@mixin header-font() {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 800;
+}
+
+@mixin accent-font() {
+	font-family: 'Gentium Book Basic', serif;
+	font-weight: 400;
+	font-style: italic;
+}
