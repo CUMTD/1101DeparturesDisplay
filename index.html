@@ -22,8 +22,8 @@
                         <h1 class="headsign" data-bind="text: headsign"></h1>
                         <h2 class="boarding-point" data-bind="text: stopLocation"></h2>
                         <p class="time">
-                            <span class="mins" data-bind="text: expectedText"></span>
-                            <span class="label" data-bind="visible: isMonitored">mins</span>
+                            <span class="mins" data-bind="text: expectedText, css: { scheduled: !isMonitored }"></span>
+                            <span class="label" data-bind="visible: showMins">min<span data-bind="visible: showS">s</span></span>
                         </p>
                     </div>
                 </section>

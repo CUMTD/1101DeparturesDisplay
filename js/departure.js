@@ -11,30 +11,40 @@ var Departure = (function () {
 	};
 		
 	return function Departure(apiDeparture) {
-		this.routeColor = '#' + apiDeparture.route.route_color;
-		this.textColor = '#' + apiDeparture.route.route_text_color;
-		this.headsign = apiDeparture.headsign;
-		this.isMonitored = apiDeparture.is_monitored;
-		this.scheduled = moment(apiDeparture.scheduled).format('H:mm a');
-		this.expected = apiDeparture.expected_mins;
-		this.stopLocation = STOP_NAME_MAPPING[apiDeparture.stop_id];
 		
-		Object.defineProperty(this, 'expectedText', {
+		var self = this;
+		
+		self.routeColor = '#' + apiDeparture.route.route_color;
+		self.textColor = '#' + apiDeparture.route.route_text_color;
+		self.headsign = apiDeparture.headsign;
+		self.isMonitored = apiDeparture.is_monitored;
+		self.scheduled = moment(apiDeparture.scheduled).format('h:mm a');
+		self.expected = apiDeparture.expected_mins;
+		self.stopLocation = STOP_NAME_MAPPING[apiDeparture.stop_id];
+		
+		self.showMins = ko.computed(function() {
+			return self.isMonitored && self.expected !== 0;
+		});
+		self.showS = ko.computed(function() {
+			return self.expected > 1;
+		});
+		
+		Object.defineProperty(self, 'expectedText', {
 			get: function () {
-				if (this.isMonitored) {
-					if (this.expected === 0) {
+				if (self.isMonitored) {
+					if (self.expected === 0) {
 						return 'due';
 					} else {
-						return this.expected;
+						return self.expected;
 					}
 				}
-				return this.scheduled;
+				return self.scheduled;
 			}
 		});
 		
-		Object.defineProperty(this, 'isHopper', {
+		Object.defineProperty(self, 'isHopper', {
 			get: function () {
-				return this.headsign.match(/hopper/i);
+				return self.headsign.match(/hopper/i);
 			}
 		});
 		

@@ -51,7 +51,11 @@
 		
 		> .mins {
 			font-size: 14rem;
-			@include header-font();	
+			@include header-font();
+			&.scheduled {
+				font-size: 8rem;
+				line-height: 10rem;
+			}
 		}
 		
 		> .label {
