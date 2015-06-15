@@ -20,7 +20,9 @@
 	
 	.hopper::after {
 		content: ' ';
-		background: url('../image/stripe.svg') repeat-y left 0 top -3.1466rem;
+		background-image: url('../image/stripe.svg');
+		background-repeat: repeat-y;
+		background-position: left 0 top -3.1466rem;
 		background-size: 100%;
 		position: absolute;
 		top: 0;
