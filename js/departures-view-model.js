@@ -5,6 +5,7 @@ var DeparturesViewModel = (function () {
 	'use strict';
 	
 	var DEPARTURE_REFRESH_RATE = 30000;
+	var MAX_DEPARTURES = 4;
 	
 	var DeparturesViewModel = function(updateService) {
 		
@@ -29,8 +30,8 @@ var DeparturesViewModel = (function () {
 				_this.departures([]);
 			} else {
 				_this.error(null);
-				if (newDepartures.length > 6) {
-					newDepartures = newDepartures.slice(0, 6);
+				if (newDepartures.length > MAX_DEPARTURES) {
+					newDepartures = newDepartures.slice(0, MAX_DEPARTURES);
 				}
 				_this.departures(newDepartures);
 			}
