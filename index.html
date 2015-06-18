@@ -18,7 +18,7 @@
     <body>
         <main>
             <article id="departures">
-                <div data-bind="foreach: departures, visible: !showNote">
+                <div data-bind="foreach: departures, visible: !showNote()">
                     <section class="card departure">
                         <span class="bubble"  data-bind="attr: { style: 'background-color: ' + routeColor + ';color: ' + routeColor  }, css: { hopper: isHopper }"></span>
                         <div class="content">
@@ -41,7 +41,7 @@
         </main>
         <script src="js/lib/knockout-3.3.0.js"></script>
         <script src="js/lib/moment-2.10.3.js"></script>
-        <script src="js/ajax.js"></script>
+        <script src="js/lib/jquery-2.1.4.js"></script>
         <script src="js/departures-view-model.js"></script>
         <script src="js/time-view-model.js"></script>
         <script src="js/departure.js"></script>

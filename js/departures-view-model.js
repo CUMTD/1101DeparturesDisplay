@@ -5,7 +5,7 @@ var DeparturesViewModel = (function () {
 	'use strict';
 	
 	var DEPARTURE_REFRESH_RATE = 30000;
-	var MAX_DEPARTURES = 0;
+	var MAX_DEPARTURES = 4;
 	
 	var DeparturesViewModel = function(updateService) {
 		

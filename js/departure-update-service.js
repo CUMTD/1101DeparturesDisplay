@@ -1,5 +1,5 @@
 /// <reference path="/departure.js" />
-/// <reference path="/ajax.js" />
+/// <reference path="/lib/jquery-2.1.4.js" />
 
 
 var DepartureUpdateService = (function () {
@@ -16,17 +16,21 @@ var DepartureUpdateService = (function () {
 	DepartureUpdateService.prototype.getDepartures = function(callback) {
 		var requestUrl = 'https://developer.cumtd.com/api/v' + API_VERSION + '/json/getdeparturesbystop?key=' + API_KEY + '&stop_id=' + STOP_ID + '&pt=60';
 		
-		var ajax = new Ajax();
-		ajax.request(requestUrl, function (data) {
+		$.ajax({
+			url: requestUrl,
+			dataType: 'json'
+		}).then(function(data) {
 			if (data && data.status && data.status.code === 200) {
-				var mapped = data.departures.map(function (d) {
-				return new Departure(d);
-			});
-				callback(null, mapped);
-			} else {
-				callback(data && data.status ? data.status.msg : 'Error getting departures');
-			}
-		});
+					var mapped = data.departures.map(function (d) {
+						return new Departure(d);
+					});
+					callback(null, mapped);
+				} else {
+					callback('Error getting departures');
+				}
+		}, function() {
+			callback('Error getting departures');
+		});;
 		
 	};
 		

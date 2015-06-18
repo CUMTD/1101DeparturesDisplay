@@ -1,6 +1,6 @@
 /// <reference path="/lib/moment-2.10.3.js" />
 /// <reference path="/lib/knockout-3.3.0.js" />
-/// <reference path="/ajax.js" />
+/// <reference path="/lib/jquery-2.1.4.js" />
 
 var TimeViewModel = (function () {
   
@@ -15,11 +15,16 @@ var TimeViewModel = (function () {
     self.time = ko.observable(moment());
     self.formattedTime = ko.computed(function () { return self.time().format("h:mm A"); });
 
-    self.fetch = function () {
-      var ajax = new Ajax();
-      ajax.request(TIME_ENDPOINT, function (data) {
+    self.fetch = function () {   
+      $.ajax({
+        url: TIME_ENDPOINT,
+        dataType: 'json',
+        crossDomain: true
+      }).then(function(data) {
         self.time(moment(data));
-      }, false);      
+      }, function() {
+        self.time(moment());
+      });    
     };
 
     window.setInterval(function () {
