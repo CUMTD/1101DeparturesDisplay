@@ -12,3 +12,5 @@ $departure-bubble-size: $gutter-size * 2;
 
 $clock-width: $document-width - ($gutter-size * 2);
 $clock-height: $departure-height;
+
+$note-height: $document-height - ($top-margins * 3) - $clock-height;

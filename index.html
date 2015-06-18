@@ -17,18 +17,23 @@
     </head>
     <body>
         <main>
-            <article id="departures" data-bind="foreach: departures">
-                <section class="card departure">
-                    <span class="bubble"  data-bind="attr: { style: 'background-color: ' + routeColor + ';color: ' + routeColor  }, css: { hopper: isHopper }"></span>
-                    <div class="content">
-                        <h1 class="headsign" data-bind="text: headsign"></h1>
-                        <h2 class="boarding-point" data-bind="text: stopLocation"></h2>
-                        <p class="time">
-                            <span class="mins" data-bind="text: expectedText, css: { scheduled: !isMonitored }"></span>
-                            <span class="label" data-bind="visible: showMins">min<span data-bind="visible: showS">s</span></span>
-                        </p>
-                    </div>
-                </section>
+            <article id="departures">
+                <div data-bind="foreach: departures, visible: !showNote">
+                    <section class="card departure">
+                        <span class="bubble"  data-bind="attr: { style: 'background-color: ' + routeColor + ';color: ' + routeColor  }, css: { hopper: isHopper }"></span>
+                        <div class="content">
+                            <h1 class="headsign" data-bind="text: headsign"></h1>
+                            <h2 class="boarding-point" data-bind="text: stopLocation"></h2>
+                            <p class="time">
+                                <span class="mins" data-bind="text: expectedText, css: { scheduled: !isMonitored }"></span>
+                                <span class="label" data-bind="visible: showMins">min<span data-bind="visible: showS">s</span></span>
+                            </p>
+                        </div>
+                    </section>
+                </div>
+                <aside id="note" class="note" data-bind="visible: showNote">
+                    <p class="note-text" data-bind="text: note"></p>
+                </aside>
             </article>
             <aside id="clock" class="card clock">
                 <p class="time" data-bind="text: formattedTime"></p>

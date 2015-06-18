@@ -1,0 +1,17 @@
+@import "../_import.scss";
+
+.note {
+	position: absolute;
+	top: $top-margins;
+	right: $gutter-size;
+	left: $gutter-size;
+	height: $note-height;
+}
+
+.note-text {
+	@include header-font();
+	font-size: 12rem;
+	text-align: center;
+	color: $card-color;
+	text-shadow: 0 0 8rem $font-color;
+}

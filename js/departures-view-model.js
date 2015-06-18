@@ -5,7 +5,7 @@ var DeparturesViewModel = (function () {
 	'use strict';
 	
 	var DEPARTURE_REFRESH_RATE = 30000;
-	var MAX_DEPARTURES = 4;
+	var MAX_DEPARTURES = 0;
 	
 	var DeparturesViewModel = function(updateService) {
 		
@@ -15,9 +15,26 @@ var DeparturesViewModel = (function () {
 		_this.timer = null;
 		
 		_this.departures = ko.observableArray();
+		_this.hasDepartures = ko.computed(function() {
+			return _this.departures().length > 0;
+		});
+		
 		_this.error = ko.observable(null);
 		_this.hasError = ko.computed(function () {
-			return _this.error() === null;
+			return _this.error() !== null;
+		});
+		
+		_this.note = ko.computed(function() {
+			if (_this.hasError()) {
+				return _this.error();
+			} else if (!_this.hasDepartures()) {
+				return 'There are no departures at this time.';
+			}
+			return null;
+		});
+		
+		_this.showNote = ko.computed(function() {
+			return _this.note() !== null;
 		});
 		
 	};
