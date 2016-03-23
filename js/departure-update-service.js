@@ -1,5 +1,5 @@
-/// <reference path="/departure.js" />
-/// <reference path="/lib/jquery-2.1.4.js" />
+/// <reference path="./departure.js" />
+/// <reference path="./lib/jquery.js" />
 
 
 var DepartureUpdateService = (function () {

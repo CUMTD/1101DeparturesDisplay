@@ -1,4 +1,4 @@
-/// <reference path="/lib/knockout-3.3.0.js" />
+/// <reference path="./lib/knockout.js" />
 
 var DeparturesViewModel = (function () {
 	

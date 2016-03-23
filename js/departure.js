@@ -1,4 +1,4 @@
-/// <reference path="/lib/moment-2.10.3.js" />
+/// <reference path="./lib/moment.js" />
 
 var Departure = (function () {
 	

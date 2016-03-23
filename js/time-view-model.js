@@ -1,12 +1,12 @@
-/// <reference path="/lib/moment-2.10.3.js" />
-/// <reference path="/lib/knockout-3.3.0.js" />
-/// <reference path="/lib/jquery-2.1.4.js" />
+/// <reference path="./lib/moment.js" />
+/// <reference path="./lib/knockout.js" />
+/// <reference path="./lib/jquery.js" />
 
 var TimeViewModel = (function () {
   
   'use strict';
   
-  var TIME_ENDPOINT = 'http://dev.mtdweb.cumtd.com/api/time';
+  var TIME_ENDPOINT = 'https://mtdweb.cumtd.com/api/time';
   var TICK_TIME = 10000; // 10 seconds
   var SYNC_TIME = 600000; // 10 minutes
   
