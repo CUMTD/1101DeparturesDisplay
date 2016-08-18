@@ -2,7 +2,7 @@ var DepartureUpdateService = (function () {
 	
 	'use strict';
 	
-	var API_KEY = '3231f3146fbc4dcdb39bd37bed5f6438';
+	var API_KEY = '667b76df6e904ef49c84ca515a8eef82';
 	var API_VERSION = '2.2';
 	var STOP_ID = 'UNICTGRV';
 		
