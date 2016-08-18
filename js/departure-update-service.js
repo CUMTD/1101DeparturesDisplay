@@ -1,7 +1,3 @@
-/// <reference path="./departure.js" />
-/// <reference path="./lib/jquery.js" />
-
-
 var DepartureUpdateService = (function () {
 	
 	'use strict';

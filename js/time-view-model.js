@@ -1,7 +1,3 @@
-/// <reference path="./lib/moment.js" />
-/// <reference path="./lib/knockout.js" />
-/// <reference path="./lib/jquery.js" />
-
 var TimeViewModel = (function () {
   
   'use strict';

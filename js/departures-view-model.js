@@ -1,5 +1,3 @@
-/// <reference path="./lib/knockout.js" />
-
 var DeparturesViewModel = (function () {
 	
 	'use strict';

@@ -1,4 +1,6 @@
 _site/
-.sass-cache/
+
+**/.sass-cache
+**/.sass-cache/*
 
 Thumbs.db

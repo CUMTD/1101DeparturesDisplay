@@ -1,5 +1,3 @@
-/// <reference path="./lib/moment.js" />
-
 var Departure = (function () {
 	
 	'use strict';
