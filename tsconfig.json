@@ -1,0 +1,13 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "sourceMap": true,
+    "target": "es5",
+    "jsx": "react",
+    "pretty": true
+  },
+  "files": [
+    "./typings/index.d.ts"
+  ]
+}
