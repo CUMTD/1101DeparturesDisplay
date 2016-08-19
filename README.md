@@ -37,7 +37,7 @@ Once everything is installed and you are logged in, we need to configure the OS 
 
 1. Install chromium source:
 
-   ```
+   ```bash
    wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
    echo "deb http://dl.bintray.com/kusti8/chromium-rpi jessie main" | sudo tee -a /etc/apt/sources.list
    sudo apt-get update
