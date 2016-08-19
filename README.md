@@ -5,45 +5,66 @@ Tested against Google Chrome (v43.0.2357.124) and designed to be run on Chromium
 
 ## Running Locally
 1. Follow the steps at
+
+### Requirements
+* Node/NPM
+* Ruby
+
+### Setup NPM, Typings and Webpack
+Once node and npm are configured run the following node commands from the project root.
+
+```bash
+npm install -g typescript typings webpack
+npm install
+npm link typescript
+typings install
+```
+
+To build the scripts run either `webpack` or `webpack -w`. The latter will watch main.tsx for changes.
+
+### Setup Github Pages
 https://help.github.com/articles/using-jekyll-with-pages/#installing-jekyll
 to install Ruby, Bundler, and Jekyll.
 2. To run the development server, from the application's root directory run: `bundle exec jekyll serve`
 
-## Setting up a Raspberry Pi 2 to Run as a Kiosk
+## Setting up a Raspberry Pi to Run as a Kiosk
 Much of the following comes from: https://github.com/MobilityLab/TransitScreen/wiki/Raspberry-pi
 ### Installing Raspbian
-1. Install Raspbian from using an SD card with the NOOBS launcher.
-2. When the Raspbian installer finishes it will run `raspi-config`.
-  1. Select option `2 Change User Password` and set the password to whatever you would like.
-  2. Select option `3 Enable Boot to Desktop/Scratch` and choose to boot to the command-line.
-  3. Select your local and timezone in `4 Internationalization Options`.
-  4. In `8 Advanced Options` set the hostname of the Raspberry Pi to whatever you would like.
-3. Select `<Finish>`
+Install Raspbian from using an SD card with the NOOBS launcher.
 
 ### Configuring Raspbian
 Once everything is installed and you are logged in, we need to configure the OS to run our software in kiosk mode.
 
-1. Do a `sudo apt-get update` and `sudo apt-get upgrade` to update the OS.
-2. Install Required Software
-  1. Chromium Browser: `sudo apt-get install chromium-browser`
-  2. X11 Utils: `sudo apt-get install x11-xserver-utils`
+1. Install chromium source:
+  ```bash
+  wget -qO - http://bintray.com/user/downloadSubjectPublicKey?username=bintray | sudo apt-key add -
+  echo "deb http://dl.bintray.com/kusti8/chromium-rpi jessie main" | sudo tee -a /etc/apt/sources.list
+  sudo apt-get update
+  ```
+2. Do a `sudo apt-get upgrade` to update to all the latest software.
+3. Install Required Software
+  1. Chromium Browser: `sudo apt-get install chromium-browser`.
+  2. X11: `sudo apt-get install x11-xserver-utils xorg`
   3. Unclutter (Hides Mouse Pointer): `sudo apt-get install unclutter`
-  3. *(optional)* VIM: `sudo apt-get install vim`
-3. Add the following kiosk script to your home folder
+  4. *(optional)* VIM: `sudo apt-get install vim`
+4. Add the following kiosk script to your home folder
   1. `vi kiosk.sh`
   2. Edit the script as follows:
   ```bash
   #!/bin/sh
   /usr/bin/xset -dpms
   /usr/bin/xset s off
-  /usr/bin/unclutter & /usr/bin/chromium-browser -window-size=1280,1024 -kiosk http://cumtd.github.io/1101DeparturesDisplay/
+  /usr/bin/unclutter & /usr/bin/chromium-browser -window-size=1280,1024 -kiosk -incognito http://cumtd.github.io/1101DeparturesDisplay/
   ```
   3. Allow the script to be executed. `chmod 755`
 
 4. Setup autologin
-  1. `sudo vi /etc/inittab`
-  2. find the line `1:2345:respawn:/sbin/getty 115200 tty1` and prepend it with a `#` to comment it out.
-  3. Under this line add the line `1:2345:respawn:/bin/login -f pi tty1 </dev/tty1 >/dev/tty1 2>&1`
+  1. `sudo vi /etc/systemd/system/getty@tty1.service.d/autologin.conf` and add the following:
+  ```bash
+  [Service]
+  ExecStart=
+  ExecStart=-/sbin/agetty --autologin pi --noclear %I 38400 linux
+  ```
 5. Start the kiosk on login.
 	1. Add a startup script: `sudo vi /etc/profile.d/start_kiosk.sh`
 	2. Edit the script as follows:
