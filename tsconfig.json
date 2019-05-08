@@ -5,9 +5,17 @@
     "sourceMap": true,
     "target": "es5",
     "jsx": "react",
-    "pretty": true
+    "pretty": true,
+    "types": [
+      "react",
+      "react-dom",
+      "moment"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
-  "files": [
-    "./typings/index.d.ts"
+  "exclude": [
+    "node_modules"
   ]
 }

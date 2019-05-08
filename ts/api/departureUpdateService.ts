@@ -1,5 +1,5 @@
 import * as axios from 'axios';
-
+import { AxiosResponse } from 'axios';
 import Departure from './departure';
 import ApiDeparture from './interfaces/departure';
 import Response from './interfaces/response';
@@ -14,8 +14,9 @@ export default class DepartureUpdateService {
 		const requestUrl = `https://developer.cumtd.com/api/${DepartureUpdateService.API_VERSION}/json/getdeparturesbystop?key=${DepartureUpdateService.API_KEY}&stop_id=${stopId}&pt=60`;
 
 		axios
+			.default
 			.get<Response>(requestUrl)
-			.then(axiosXhr => {
+			.then((axiosXhr: AxiosResponse<Response>) => {
 				if (axiosXhr === null || axiosXhr.data === null || axiosXhr.data.status.code !== 200) {
 					callback(null, true);
 				} else {
@@ -23,7 +24,7 @@ export default class DepartureUpdateService {
 						.data
 						.departures
 						.map((departure: ApiDeparture) => new Departure(departure));
-						mappedDepartures = mappedDepartures.slice(0, Math.min(DepartureUpdateService.MAX_DEPARTURES, mappedDepartures.length));
+					mappedDepartures = mappedDepartures.slice(0, Math.min(DepartureUpdateService.MAX_DEPARTURES, mappedDepartures.length));
 					callback(mappedDepartures, false);
 				}
 			})

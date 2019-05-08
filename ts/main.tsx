@@ -1,3 +1,4 @@
+import * as React from 'react';
 import * as reactDom from 'react-dom';
 import { App } from './components/app';
 

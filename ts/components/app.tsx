@@ -1,12 +1,12 @@
 import * as moment from 'moment';
 import * as React from 'react';
 import { Component } from 'react';
-
-import { Clock } from './clock';
-import { Departures } from './departures';
 import DepartureModel from '../api/departure';
 import DepartureUpdateService from '../api/departureUpdateService';
 import TimeUpdateService from '../api/timeUpdateService';
+import { Clock } from './clock';
+import { Departures } from './departures';
+
 
 interface AppProps {
 	stopId: string;
@@ -54,24 +54,19 @@ export class App extends Component<AppProps, AppState> {
 		DepartureUpdateService.getDepartures(this.props.stopId, this.updateDeparturesState);
 	};
 
-	private updateDeparturesState = (departures: DepartureModel[], error: boolean) => {
-		this.state.departures = departures;
-		this.state.networkError = error;
-		this.setState(this.state);
-	};
+	private updateDeparturesState = (departures: DepartureModel[], error: boolean) =>
+		this.setState({ ...this.state, departures, networkError: error });
 
 	private updateTime = () => {
 		TimeUpdateService.getTime(this.updateTimeState);
 	};
 
-	private updateTimeState = (time: moment.Moment) => {
-		this.state.time = time;
-		this.setState(this.state);
-	};
+	private updateTimeState = (time: moment.Moment) =>
+		this.setState({ ...this.state, time });
 
 	private tickTime = () => {
-		this.state.time = this.state.time.add(App.TIME_TICK_INTERVAL, 'ms');
-		this.setState(this.state);
+		const time: moment.Moment = this.state.time.add(App.TIME_TICK_INTERVAL, 'ms');
+		this.setState({ ...this.state, time });
 	};
 
 }

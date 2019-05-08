@@ -14,10 +14,7 @@ Tested against Google Chrome (v43.0.2357.124) and designed to be run on Chromium
 Once node and npm are configured run the following node commands from the project root.
 
 ```bash
-npm install -g typescript typings webpack
-npm install
-npm link typescript
-typings install
+yarn install
 ```
 
 To build the scripts run either `webpack` or `webpack -w`. The latter will watch main.tsx for changes.
