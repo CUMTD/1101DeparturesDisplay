@@ -1,17 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import DepartureModel from '../api/departure';
+import { AppContext } from './app';
 import Departure from './Departure';
 
-
-
-interface Props {
-	departures: DepartureModel[];
-	networkError: boolean;
-}
-
-const Departures: FC<Props> = (props: Props) => {
-	if (props.networkError || !props.departures || props.departures.length === 0) {
-		const note = props.networkError ? 'Error Getting Departures' : 'No Departures';
+const Departures: FC = () => {
+	const context = useContext(AppContext);
+	if (context.state.networkError || !context.state.departures || context.state.departures.length === 0) {
+		const note = context.state.networkError ? 'Error Getting Departures' : 'No Departures';
 		return (
 			<aside className="note">
 				<p className="note-text">{note}</p>
@@ -21,7 +16,7 @@ const Departures: FC<Props> = (props: Props) => {
 
 	return (
 		<article className="departures">
-			{props.departures.map((departure: DepartureModel) => <Departure key={departure.vehicleId} departure={departure} />)}
+			{context.state.departures.map((departure: DepartureModel) => <Departure key={departure.vehicleId} departure={departure} />)}
 		</article>
 	);
 }

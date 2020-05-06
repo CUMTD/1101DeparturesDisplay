@@ -1,15 +1,14 @@
-import dayjs from 'dayjs';
-import * as React from 'react';
-import { Component } from 'react';
+import React, { FC, useContext } from 'react';
+import { AppContext } from './app';
 
-interface ClockProps {
-	time: dayjs.Dayjs;
+const Clock: FC = () => {
+	const context = useContext(AppContext);
+
+	return (
+		<aside className="card clock">
+			<p className="time">{context.state.time.format("h:mm A")}</p>
+		</aside>
+	)
 }
 
-export class Clock extends Component<ClockProps, {}> {
-	render() {
-		return (<aside className="card clock">
-			<p className="time">{this.props.time.format("h:mm A")}</p>
-		</aside>);
-	}
-}
+export default Clock;

@@ -5,7 +5,6 @@ export async function getTime(): Promise<dayjs.Dayjs> {
 	try {
 		response = await fetch('https://mtdweb.mtd.org/api/time');
 		const timeString = await response.json();
-		debugger;
 		return dayjs(timeString);
 	} catch {
 		return dayjs();
