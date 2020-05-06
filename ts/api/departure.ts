@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import ApiDeparture from './interfaces/departure';
 
 export default class Departure {
@@ -28,7 +28,7 @@ export default class Departure {
 		this.textColor = `#${departure.route.route_text_color}`;
 		this.headsign = departure.headsign;
 		this.isMonitored = departure.is_monitored;
-		this.scheduled = moment(departure.scheduled).format('h:mm a');
+		this.scheduled = dayjs(departure.scheduled).format('h:mm a');
 		this.expected = departure.expected_mins;
 		this.stopLocation = Departure.STOP_NAME_MAPPING[departure.stop_id];
 

@@ -1,9 +1,9 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import * as React from 'react';
 import { Component } from 'react';
 
 interface ClockProps {
-	time: moment.Moment;
+	time: dayjs.Dayjs;
 }
 
 export class Clock extends Component<ClockProps, {}> {

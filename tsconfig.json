@@ -14,8 +14,7 @@
     "types": [
       "react",
       "react-dom",
-      "moment",
-      "axios"
+      "dayjs"
     ]
   },
   "exclude": [
