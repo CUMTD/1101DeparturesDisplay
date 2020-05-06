@@ -9,5 +9,6 @@ interface ApiDeparture {
 	scheduled: string;
 	expected: string;
 	expected_mins: number;
+	vehicle_id: string;
 }
 export default ApiDeparture;

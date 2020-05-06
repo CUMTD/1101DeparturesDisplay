@@ -1,44 +1,47 @@
-import * as React from 'react';
-import { Component } from 'react';
-
+import React, { CSSProperties, FC } from 'react';
 import DepartureModel from '../api/departure';
 
-interface DepartureProps {
+function getMins(departure: DepartureModel): JSX.Element {
+    const minsClass = `mins ${departure.isMonitored ? '' : 'scheduled'}`;
+    return <span className={minsClass}>{departure.expectedTime}</span>;
+}
+
+function getMinsLabel(departure: DepartureModel): JSX.Element {
+    if (departure.showMins) {
+        return <span className="label">{departure.minsText}</span>;
+    }
+    return null;
+}
+
+interface Props {
     departure: DepartureModel;
 }
 
-export class Departure extends Component<DepartureProps, {}> {
-    render() {
+const Departure: FC<Props> = (props: Props) => {
 
-        const bubbleStyle = {
-            backgroundColor: this.props.departure.routeColor,
-            color: this.props.departure.routeColor
-        }
+    const bubbleStyle: CSSProperties = {
+        backgroundColor: props.departure.routeColor,
+        color: props.departure.routeColor
+    }
 
-        const hopperClass = `bubble ${this.props.departure.isHopper ? 'hopper' : ''}`;
+    const classes = ['bubble'];
 
-        return (<section className="card departure">
-            <span className={hopperClass} style={bubbleStyle}></span>
+    if (props.departure.isHopper) {
+        classes.push('hopper');
+    }
+
+    return (
+        <section className="card departure">
+            <span className={classes.join(' ')} style={bubbleStyle}></span>
             <div className="content">
-                <h1 className="headsign">{this.props.departure.headsign}</h1>
-                <h2 className="boarding-point">{this.props.departure.stopLocation}</h2>
+                <h1 className="headsign">{props.departure.headsign}</h1>
+                <h2 className="boarding-point">{props.departure.stopLocation}</h2>
                 <p className="time">
-                    {this.getMins() }{this.getMinsLabel() }
+                    {getMins(props.departure)}{getMinsLabel(props.departure)}
                 </p>
             </div>
-        </section>);
-    }
-
-    getMins(): JSX.Element {
-        const minsClass = `mins ${this.props.departure.isMonitored ? '' : 'scheduled'}`;
-        return <span className={minsClass}>{this.props.departure.expectedTime}</span>;
-    }
-
-    getMinsLabel(): JSX.Element {
-        if (this.props.departure.showMins) {
-            return <span className="label">{this.props.departure.minsText}</span>;
-        }
-        return null;
-    }
-
+        </section>
+    );
 }
+
+export default Departure;

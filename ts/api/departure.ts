@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 import ApiDeparture from './interfaces/departure';
 
 export default class Departure {
@@ -21,6 +21,7 @@ export default class Departure {
 	isHopper: boolean;
 	expectedTime: string;
 	minsText: string;
+	vehicleId: string;
 
 	constructor(departure: ApiDeparture) {
 		this.routeColor = `#${departure.route.route_color}`;
@@ -49,15 +50,15 @@ export default class Departure {
 		this.minsText = (() => {
 			const showMins = this.showMins;
 			const showS = this.expected > 1;
-            if (showMins && showS) {
-                return 'mins';
-            } else if (showMins) {
+			if (showMins && showS) {
+				return 'mins';
+			} else if (showMins) {
 				return 'min';
 			} else {
 				return '';
 			}
-        })();
+		})();
 
-
+		this.vehicleId = departure.vehicle_id;
 	}
 }

@@ -7,7 +7,6 @@ import Response from './interfaces/response';
 export default class DepartureUpdateService {
 	private static API_KEY = '667b76df6e904ef49c84ca515a8eef82';
 	private static API_VERSION = 'v2.2';
-	private static STOP_ID = 'UNICTGRV';
 	private static MAX_DEPARTURES = 4;
 
 	public static getDepartures = (stopId: string, callback: (departures: Departure[], error: boolean) => void) => {

@@ -1,14 +1,14 @@
-import * as moment from 'moment';
-import * as React from 'react';
-import { Component } from 'react';
+import moment from 'moment';
+import React, { FC, useState } from 'react';
 import DepartureModel from '../api/departure';
 import DepartureUpdateService from '../api/departureUpdateService';
 import TimeUpdateService from '../api/timeUpdateService';
+import { useInterval } from '../hooks/useInterval';
 import { Clock } from './clock';
-import { Departures } from './departures';
+import Departures from './departures';
 
 
-interface AppProps {
+interface Props {
 	stopId: string;
 }
 
@@ -18,55 +18,46 @@ interface AppState {
 	networkError: boolean;
 }
 
-export class App extends Component<AppProps, AppState> {
+const DEPARTURE_UPDATE_INTERVAL = 60000; // 1 minute
+const TIME_SYNC_INTERVAL = 600000; // 10 minutes
+const TIME_TICK_INTERVAL = 10000; // 10 seconds
 
-	private static DEPARTURE_UPDATE_INTERVAL = 60000; // 1 minute
-	private static TIME_SYNC_INTERVAL = 600000; // 10 minutes
-	private static TIME_TICK_INTERVAL = 10000; // 10 seconds
+const App: FC<Props> = (props: Props) => {
 
 
-	constructor(props: AppProps, context: any) {
-		super(props, context);
+	const [time, setTime] = useState<moment.Moment>(moment(new Date()));
+	const [departures, setDepartures] = useState<DepartureModel[]>([]);
+	const [networkError, setNetworkError] = useState<boolean>(false);
 
-		this.state = {
-			time: moment(new Date()),
-			departures: new Array<DepartureModel>(),
-			networkError: false
-		};
-	}
+	useInterval(function departureIntervalCallback(): void {
+		DepartureUpdateService.getDepartures(props.stopId, (departures: DepartureModel[], error: boolean) => {
+			if (error) {
+				setNetworkError(true);
+				setDepartures([]);
+			} else {
+				setNetworkError(false);
+				setDepartures(departures);
+			}
+		});
+	}, DEPARTURE_UPDATE_INTERVAL, [props.stopId]);
 
-	componentDidMount() {
-		window.setInterval(this.updateDepartures, App.DEPARTURE_UPDATE_INTERVAL); // one minute
-		this.updateDepartures();
-		window.setInterval(this.updateTime, App.TIME_SYNC_INTERVAL); // 10 minutes
-		this.updateTime();
-		window.setInterval(this.tickTime, App.TIME_TICK_INTERVAL); // 10 seconds
-	}
+	useInterval(function updateTimeIntervalCallback(): void {
+		TimeUpdateService.getTime((time: moment.Moment) => {
+			setTime(time);
+		});
+	}, TIME_SYNC_INTERVAL, []);
 
-	render() {
-		return (<div>
-			<Departures departures={this.state.departures} networkError={false} />
-			<Clock time={this.state.time} />
-		</div>);
-	}
+	useInterval(function departureIntervalCallback(): void {
+		const newTime: moment.Moment = time.add(TIME_TICK_INTERVAL, 'ms');
+		setTime(newTime);
+	}, TIME_TICK_INTERVAL, []);
 
-	private updateDepartures = () => {
-		DepartureUpdateService.getDepartures(this.props.stopId, this.updateDeparturesState);
-	};
+	return (
+		<div>
+			<Departures departures={departures} networkError={networkError} />
+			<Clock time={time} />
+		</div>
+	);
+};
 
-	private updateDeparturesState = (departures: DepartureModel[], error: boolean) =>
-		this.setState({ ...this.state, departures, networkError: error });
-
-	private updateTime = () => {
-		TimeUpdateService.getTime(this.updateTimeState);
-	};
-
-	private updateTimeState = (time: moment.Moment) =>
-		this.setState({ ...this.state, time });
-
-	private tickTime = () => {
-		const time: moment.Moment = this.state.time.add(App.TIME_TICK_INTERVAL, 'ms');
-		this.setState({ ...this.state, time });
-	};
-
-}
+export default App;

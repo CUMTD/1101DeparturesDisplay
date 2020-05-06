@@ -1,6 +1,6 @@
+import moment from 'moment';
 import * as React from 'react';
 import { Component } from 'react';
-import * as moment from 'moment'
 
 interface ClockProps {
 	time: moment.Moment;
