@@ -16,7 +16,14 @@ const Departures: FC = () => {
 
 	return (
 		<article className="departures">
-			{context.state.departures.map((departure: DepartureModel) => <Departure key={departure.vehicleId} departure={departure} />)}
+			{
+				context
+					.state
+					.departures
+					.map(
+						(departure: DepartureModel) => <Departure key={departure.getKey()} departure={departure} />
+					)
+			}
 		</article>
 	);
 }

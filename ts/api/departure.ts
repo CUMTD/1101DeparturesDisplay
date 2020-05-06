@@ -22,6 +22,13 @@ export default class Departure {
 	expectedTime: string;
 	minsText: string;
 	vehicleId: string;
+	tripId: string | null;
+	tripHeadsign: string | null;
+	routeId: string | null;
+	blockId: string | null;
+	direction: string | null;
+	serviceId: string | null;
+	shapeId: string | null;
 
 	constructor(departure: ApiDeparture) {
 		this.routeColor = `#${departure.route.route_color}`;
@@ -60,5 +67,16 @@ export default class Departure {
 		})();
 
 		this.vehicleId = departure.vehicle_id;
+		this.tripId = departure.trip.trip_id;
+		this.tripHeadsign = departure.trip.trip_headsign;
+		this.routeId = departure.trip.route_id;
+		this.blockId = departure.trip.block_id;
+		this.direction = departure.trip.direction;
+		this.serviceId = departure.trip.service_id;
+		this.shapeId = departure.trip.shape_id;
+	}
+
+	public getKey(): string {
+		return `vehicle-${this.vehicleId}_trip-${this.tripId}_route-${this.routeId}_block-${this.blockId}-direction-${this.direction}_service-${this.serviceId}_shape-${this.shapeId}`;
 	}
 }
