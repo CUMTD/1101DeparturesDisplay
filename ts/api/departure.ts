@@ -77,6 +77,6 @@ export default class Departure {
 	}
 
 	public getKey(): string {
-		return `vehicle-${this.vehicleId}_trip-${this.tripId}_route-${this.routeId}_block-${this.blockId}-direction-${this.direction}_service-${this.serviceId}_shape-${this.shapeId}`;
+		return `vehicle-${this.vehicleId}_trip-${this.tripId}_route-${this.routeId}_block-${this.blockId}-direction-${this.direction}_service-${this.serviceId}_shape-${this.shapeId}_scheduled-${this.scheduled}`;
 	}
 }
